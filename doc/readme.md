@@ -175,5 +175,91 @@ which gunicorn
 ```
 
 ![pre requisitos](../doc/img/cp17.png)
-    
 
+Y ahora iniciaremos nginx con el comando:
+
+```
+sudo systemctl start nginx
+```
+
+![pre requisitos](../doc/img/cp18.png)
+
+Y ahora para que corra el gunicorn como servicio del sistema crearemos el archivo flask_app.service con el comando:
+
+```
+sudo nano /etc/systemd/system/flask_app.service
+```
+
+![pre requisitos](../doc/img/cp19.png)
+
+
+Informaremos de que hay un nuevo servicio con el comando:
+
+```
+sudo systemctl daemon-reload
+```
+
+![pre requisitos](../doc/img/cp20.png)
+
+Y ahora lo iniciaremos con el comando:
+
+```
+sudo systemctl enable flask_app
+```
+
+```
+sudo systemctl start flask_app
+```
+
+Para hacer la configuracion de nginx haremos el siguiente comando:
+
+```
+sudo nano /etc/nginx/sites-available/app.conf
+```
+
+![pre requisitos](../doc/img/cp21.png)
+
+Crearemos un enlace simbolico con el comando:
+
+```
+sudo ln -s /etc/nginx/sites-available/app.conf /etc/nginx/sites-enabled/
+```
+
+Y ahora lo comprobaremos con el comando:
+
+```
+ls -l /etc/nginx/sites-enabled/ | grep app.conf
+```
+
+![pre requisitos](../doc/img/cp22.png)
+
+Para comprobar que la configuracion de nginx es correcta ejecutaremos el comando:
+
+```
+sudo nginx -t
+```
+
+![pre requisitos](../doc/img/cp23.png)
+
+Y ahora rearrancaremos nginx con el comando:
+
+```
+sudo systemctl restart nginx
+sudo systemctl status nginx
+```
+
+![pre requisitos](../doc/img/cp24.png)
+
+Deberemos poner esta ruta en el archivo hosts en windows para previsualizar la aplicacion:
+
+```
+192.168.X.X app.izv www.app.izv
+```
+
+![pre requisitos](../doc/img/cp25.png)
+
+
+Y se verá en la web así:
+
+
+![pre requisitos](../doc/img/cp26.png)
