@@ -48,6 +48,8 @@ pip3 install python-dotenv
 ![pre requisitos](../doc/img/cp4.png)
 
 
+## Despliegue
+
 Para alamcenar nuestro proyecto crearemos la siguiente carpeta con el comando:
 
 ```
@@ -263,3 +265,79 @@ Y se verá en la web así:
 
 
 ![pre requisitos](../doc/img/cp26.png)
+
+
+## Tarea de ampliación
+
+Para hacer ahora la tarea de ampliación clonaremos el repositorio de github con el comando en el directorio /var/www:
+
+```
+git clone https://github.com/Azure-Samples/msdocs-python-flask-webapp-quickstart
+```
+
+![pre requisitos](../doc/img/cp27.png)
+
+Cambiremos los permisos y el propietario con el comando:
+
+```
+sudo chown -R $USER:www-data /var/www/msdocs-python-flask-webapp-quickstart/
+sudo chmod -R 775 /var/www/msdocs-python-flask-webapp-quickstart/
+```
+
+![pre requisitos](../doc/img/cp28.png)
+
+Ahora crearemos el archivo .env con el comando:
+
+```
+sudo nano msdocs-python-flask-webapp-quickstart/.env
+```
+
+![pre requisitos](../doc/img/cp29.png)
+
+Y el contenido del archivo sera algo como esto:
+
+```
+FLASK_APP=application.py
+FLASK_ENV=production
+```
+
+Ahora entraremos en el directorio de nuestra app e iniciaremos la shell de pipenv con el comando:
+
+```
+cd msdocs-python-flask-webapp-quickstart
+pipenv shell
+```
+
+![pre requisitos](../doc/img/cp30.png)
+
+Instalamos los requisitos con el comando:
+
+```
+pipenv install -r requirements.txt
+```
+
+![pre requisitos](../doc/img/cp31.png)
+
+Instalamos flask y gunicorn con el comando:
+
+```
+pipenv install flask gunicorn
+```
+
+![pre requisitos](../doc/img/cp32.png)
+
+Lanzar app:
+
+![pre requisitos](../doc/img/cp34.png)
+
+Pruebas de comprobacion:
+
+![pre requisitos](../doc/img/cp35.png)
+
+Y ahora para desplegarlo con gunicorn deberemos ejecutar el siguiente comando:
+
+```
+gunicorn --workers 4 --bind 0.0.0.0:5000 wsgi:app
+```
+
+![pre requisitos](../doc/img/cp36.png)
